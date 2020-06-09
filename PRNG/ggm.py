@@ -18,7 +18,6 @@ def function_H(first_half, second_half):
 
 def function_G(initial_seed):
     binary_string = initial_seed
-    # import pdb; pdb.set_trace()
     result = ''
     for i in range(FUNCTION_L(SEED_SIZE)):
         first_half = binary_string[:int(len(binary_string)/2)]
@@ -31,7 +30,6 @@ def function_G(initial_seed):
 
 def PRNG(seed):
     init_seed = str(seed)
-    # import pdb; pdb.set_trace()
     if len(init_seed) > SEED_SIZE:
         print('Inital seed too long!')
         return None

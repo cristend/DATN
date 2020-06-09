@@ -44,8 +44,11 @@ def is_descendant(ancestor, node):
     return None
 
 
-def print_tree(node, flag=True):
-    print(node.id, end=' ')
+def print_tree(node, flag=True, inline=False):
+    if inline:
+        print(node, end=' ')
+    else:
+        print(node)
     if node.left is not None:
         print_tree(node.left, flag=False)
     if node.right is not None:

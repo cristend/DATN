@@ -18,15 +18,14 @@ from resource import print_tree
 
 users = Users()
 users.create_user(8)
-users.print()
 test = Binary_tree(7)
 test.build(user_list=users)
 print_tree(node=test.root)
-revokes = [10, 50, 60, 30, 70]
-st = Steiner_tree(test)
-st_tree = st.build(revokes)
+# revokes = [10, 50, 60, 30, 70]
+# st = Steiner_tree(test)
+# st_tree = st.build(revokes)
 # pdb.set_trace()
-print_tree(node=st_tree)
+# print_tree(node=st_tree)
 # count = test.leaf_count(test.root.left)
 # pdb.set_trace()
 # count = test.leaf_count(root=st_tree)

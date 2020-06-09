@@ -1,5 +1,7 @@
 import math
+import random
 from resource import is_leaf, is_power, is_descendant, leaf_count
+from PRNG.ggm import PRNG
 
 
 class Node():
@@ -7,15 +9,20 @@ class Node():
         self.id = id
         self.left = None
         self.right = None
+        self.parent = None
         self.data = data
+        self.label = None
 
     def __repr__(self):
-        left_child = True if self.left else False
-        right_child = True if self.right else False
-        status = 'user' if self.data else 'non-user'
+        left_child = self.left.id if self.left else None
+        right_child = self.right.id if self.right else None
+        parent = self.parent.id if self.parent else None
+        status = 'user' if self.data else 'node'
+        if self.id == 1:
+            status = 'root'
         node = ('id: {}, left_child: {},'
-                ' right_child: {}, status: {}').format(
-            self.id, left_child, right_child, status)
+                ' right_child: {}, parent: {}, status: {}').format(
+            self.id, left_child, right_child, parent, status)
         return node
 
 
@@ -31,16 +38,20 @@ class Binary_tree():
             left_user = user_list.users.pop(0)
             right_user = user_list.users.pop(0)
             node.left = Node(id=left_user.id, data=left_user)
+            node.left.parent = node
             node.right = Node(id=right_user.id, data=right_user)
+            node.right.parent = node
             return None
         if node.left is None:
             left_id = 2*id
             node.left = Node(id=left_id)
+            node.left.parent = node
             self.insert(node=node.left, depth=depth+1,
                         depth_leaf=depth_leaf, id=left_id, user_list=user_list)
         if node.right is None:
             right_id = 2*id + 1
             node.right = Node(id=right_id)
+            node.right.parent = node
             self.insert(node=node.right, depth=depth+1,
                         depth_leaf=depth_leaf, id=right_id,
                         user_list=user_list)
@@ -142,6 +153,78 @@ class Binary_tree():
             subsets.update(right_subset)
             return subsets, 1, root
 
+    def G_L(self, X):
+        prn = PRNG(seed=X)
+        return prn[:int(len(prn)/3)]
+
+    def G_M(self, X):
+        prn = PRNG(seed=X)
+        return prn[int(len(prn)/3):int(len(prn)*2/3)]
+
+    def G_R(self, X):
+        prn = PRNG(seed=X)
+        return prn[int(len(prn)*2/3):]
+
+    def create_label(self, node=None, label=None):
+        node = self.root if node is None else node
+        if node is None:
+            return None
+        if node == self.root:
+            node.label = format(random.getrandbits(128), 'b')
+        else:
+            node.label = label
+        if node.left:
+            left_label = self.G_L(node.label)
+            self.create_label(node=node.left, label=left_label)
+        if node.right:
+            right_label = self.G_r(node.label)
+            self.create_label(node=node.right, label=right_label)
+        return None
+
+    def get_labelij(self, leaf, nodei, path):
+        labels = dict()
+        index_node = nodei
+        label = nodei.label
+        while True:
+            left_or_right = int(path[index_node.id])
+            label_left = self.G_L(label)
+            label_right = self.G_R(label)
+            if left_or_right:
+                j_index = nodei.left.id
+                index_node = nodei.right
+                label = label_left
+                label_key = f'S{index_node.id}{j_index}'
+            else:
+                j_index = nodei.right.id
+                index_node = nodei.left
+                label = label_right
+                label_key = f'S{index_node.id}{j_index}'
+            labels[label_key] = label
+            if index_node == leaf:
+                break
+            label = label_right if left_or_right else label_left
+        return labels
+
+    def get_user_labels(self, leaf, root):
+        node_list = list()
+        labels = dict()
+        path = dict()
+        parent = leaf
+        while True:
+            child = parent
+            parent = parent.parent
+            # '0' mean child is left-child of parent, '1' mean right-child
+            path_value = '0' if parent.left == child else '1'
+            path[parent.id] = path_value
+            node_list.append(parent)
+            if parent == root:
+                parent = leaf
+                break
+        for node in node_list:
+            label_dict = self.get_labelij(leaf=leaf, nodei=node, path=path)
+            labels = {**labels, **label_dict}
+        return labels
+
 
 class Steiner_tree():
     def __init__(self, tree):
@@ -176,3 +259,10 @@ class Subset():
 
     def __repr__(self):
         return f'S({self.ancestor.id},{self.descendant.id})'
+
+
+class LABEL():
+    def __init__(self):
+        pass
+
+# format(random.getrandbits(128), 'b')
