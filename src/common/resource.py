@@ -44,6 +44,30 @@ def is_descendant(ancestor, node):
     return None
 
 
+def XOR(left, right):
+    result = ''
+    if isinstance(left, int):
+        left = bin(left)[2:]
+    if isinstance(right, int):
+        right = bin(right)[2:]
+    if isinstance(right, str) and isinstance(left, str):
+        len_left = len(left)
+        len_right = len(right)
+        index = len_left if len_right >= len_left else len_right
+        for bit_index in range(index):
+            left_bit = int(left[-(bit_index+1)])
+            right_bit = int(right[-(bit_index+1)])
+            result = format(left_bit ^ right_bit, 'b') + result
+        result = (left[:-index] + result if len_left > len_right
+                  else right[:-index] + result)
+    # bitstring result
+    return result
+
+
+def byte_xor(left, right):
+    return bytes([_left ^ _right for _left, _right in zip(left, right)])
+
+
 def print_tree(node, flag=True, inline=False):
     if inline:
         print(node, end=' ')
