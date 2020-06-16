@@ -1,4 +1,4 @@
-SEED_SIZE = 4
+SEED_SIZE = 56
 GENERATOR = 223
 MODULUS = 36389
 
@@ -39,17 +39,16 @@ def PRNG(seed, output_size=None):
     return output
 
 
-def G_L(self, X):
+def G_L(X):
     prn = PRNG(seed=X)
     return prn[:int(len(prn)/3)]
 
 
-def G_M(self, X):
+def G_M(X):
     prn = PRNG(seed=X)
     return prn[int(len(prn)/3):int(len(prn)*2/3)]
 
 
-def G_R(self, X):
+def G_R(X):
     prn = PRNG(seed=X)
     return prn[int(len(prn)*2/3):]
-import pdb; pdb.set_trace()

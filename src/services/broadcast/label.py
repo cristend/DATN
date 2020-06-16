@@ -70,7 +70,7 @@ class Label():
 
     def get_user_labels(self, leaf, root=None):
         # Function collect all labelij which store in each user
-        root = self.bt.root if root is None else root
+        root = self.bt if root is None else root
         # List of node that lie on the path from user to root (except user).
         node_list = list()
         # Dictionary of all label in collection, each element have key is Sij
@@ -97,6 +97,7 @@ class Label():
         # For block iterating over all node sit in the path from user to root
         # Each iterator compute all label available from that node
         for node in node_list:
-            label_dict = self.get_labelij(leaf=leaf, nodei=node, path=path)
+            label_dict = self.get_hangoff_labelij(
+                leaf=leaf, nodei=node, path=path)
             labels = {**labels, **label_dict}
         return labels

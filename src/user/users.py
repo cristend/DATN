@@ -1,10 +1,8 @@
 class User():
     def __init__(self, id):
         self.id = id
-        self.si = None
         self.key = None
         self.status = True
-        self.label = None
 
 
 class Users():
@@ -14,10 +12,10 @@ class Users():
     def create_user(self, users):
         user_list = list()
         for user in range(users):
-            new_user = User(id=(user+1)*10)
+            new_user = User(id=str((user+1)*10))
             user_list.append(new_user)
         self.users = user_list
-        return None
+        return user_list
 
     def print(self):
         for user in self.users:

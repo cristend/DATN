@@ -1,17 +1,16 @@
-import base64
 from src.crypto.aes import AESCipher
 
 
 class ElCipher():
-    def __init__(self, key):
-        self.aes = AESCipher(key=key)
+    def __init__(self):
+        self.aes = AESCipher
 
-    def encrypt(self, raw):
-        enc = self.aes.encrypt(raw).decode()
-        cipher = base64.b64encode(enc).decode()
+    def encrypt(self, key, raw):
+        aes = self.aes(key=key)
+        cipher = aes.encrypt(raw).decode()
         return cipher
 
-    def decrypt(self, cipher):
-        dec = base64.b64decode(cipher.encode())
-        plaintext = self.aes.decrypt(dec)
+    def decrypt(self, key, cipher):
+        aes = self.aes(key=key)
+        plaintext = aes.decrypt(cipher.encode())
         return plaintext

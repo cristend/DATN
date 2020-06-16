@@ -1,11 +1,11 @@
 class Node():
-    def __init__(self, id, data=None):
+    def __init__(self, id, data=None, label=None):
         self.id = id
         self.left = None
         self.right = None
         self.parent = None
         self.data = data
-        self.label = None
+        self.label = label
 
     def __repr__(self):
         left_child = self.left.id if self.left else None
