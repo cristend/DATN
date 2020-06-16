@@ -20,7 +20,6 @@ class SubsetCover():
             subset = Subset(ancestor=parent2, descendant=node2)
             subsets.append(subset)
         return subsets
-    # Struct of subsets: dictionary{key='Sij':value='label'}
 
     def find_subsets(self, root=None):
         root = self.st if root is None else root

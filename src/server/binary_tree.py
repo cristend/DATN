@@ -63,22 +63,3 @@ class Binary_tree():
                     depth_leaf=depth_leaf, id=1, user_list=users)
         self.set_label()
         return self.root
-
-    # def test_get_user_labels(self):
-    #     root_label = self.root.label
-    #     label15 = G_R(G_L(root_label))
-    #     print(f'S15: {label15}')
-    #     label19 = G_R(G_L(G_L(root_label)))
-    #     print(f'S120: {label19}')
-    #     label13 = G_R(root_label)
-    #     print(f'S13: {label13}')
-    #     second_node = self.root.left
-    #     second_label = second_node.label
-    #     four_node = second_node.left
-    #     four_label = four_node.label
-    #     label25 = G_R(second_label)
-    #     print(f'S25: {label25}')
-    #     label220 = G_R(G_L(second_label))
-    #     print(f'S220: {label220}')
-    #     label420 = G_R(four_label)
-    #     print(f'S420: {label420}')

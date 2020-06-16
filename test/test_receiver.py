@@ -33,17 +33,13 @@ class TestReceiver():
         subsets = subset_cover._find_subsets()
         subset_label = SubsetLabel(subsets=subsets, bt=bt)
         subset_keys = subset_label.get_key()
-        #
         K = Random.new().read(7)
         K = BitArray(bytes=K).bin
-        # msg
         PATH_FILE = 'media/test.txt'
         path = os.path.abspath(os.getcwd())
         file_name = os.path.join(path, PATH_FILE)
         with open(file_name, 'rb') as f:
             msg = f.read()
-        # FK
-        # E_L
         U = Random.new().read(AES.block_size)
         bc = BroadCast(K=K, subset_keys=subset_keys)
         packet = bc.packet(msg=msg, U=U)
@@ -58,17 +54,13 @@ class TestReceiver():
         subsets = subset_cover._find_subsets()
         subset_label = SubsetLabel(subsets=subsets, bt=bt)
         subset_keys = subset_label.get_key()
-        #
         K = Random.new().read(7)
         K = BitArray(bytes=K).bin
-        # msg
         PATH_FILE = 'media/test.txt'
         path = os.path.abspath(os.getcwd())
         file_name = os.path.join(path, PATH_FILE)
         with open(file_name, 'rb') as f:
             msg = f.read()
-        # FK
-        # E_L
         U = Random.new().read(AES.block_size)
         bc = BroadCast(K=K, subset_keys=subset_keys)
         packet = bc.packet(msg=msg, U=U)
