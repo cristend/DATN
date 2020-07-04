@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block head %}
+{{super()}}
+<link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='css/main.css') }}"> {% endblock %} 
+{% block content %}
+<div class="body">
+    <div class="wrap">
+        <div class="user-page">
+            <h1>Thong tin nguoi dung</h1>
+            <hr class="hr">
+            <div class="user-avatar"><img src="{{ user.avatar(128) }}"></div>
+            <div class="user-infor">
+                <ul class="user-infors">
+                    <li class="user-infor-element" id="username"><b>Username:</b> {{user.username}}</li>
+                    <li class="user-infor-element" id="useremail"><b>Email:</b> bnguyenvanthu1905@gmail.com</li>
+                    {% if user.status %}
+                    <li class="user-infor-element" id="license"><b>License status:</b> Actived
+                        <a href="#"><button type="button">Deactive</button></a>
+                    </li>
+                    {% else %}
+                    <li class="user-infor-element" id="license"><b>License status:</b> Inactive
+                        <a href="{{ url_for('active')}}"><button type="button">Active</button></a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <table>
+    <tr valign="top">
+        <td><img src="{{ user.avatar(128) }}"></td>
+        <td>
+            <h1>User: {{ user.username }}</h1>
+        </td>
+    </tr>
+</table>
+<hr> -->
+{% endblock %}

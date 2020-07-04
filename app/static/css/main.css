@@ -1,0 +1,40 @@
+
+html,body{
+    height: 100%;
+}
+.body{
+    background-color: #a6a6a6;
+    margin-top: -20px;
+    height: 100%;
+}
+.wrap{
+    width: 1024px;
+    margin: auto;
+    padding-top: 50px;
+    background-color: #fff;
+    height: 100%;
+}
+.user-page{
+    width: 50%;
+}
+.hr{
+    height: 10px;
+    border-radius: 5px;
+    background-color: #ffa31a;
+}
+.user-avatar{
+    width: 128px;
+    display: inline-block;
+    border-right: 1px solid #000;
+}
+#user-ava{
+    vertical-align: none !important;
+}
+.user-infor{
+    display: inline-block;
+}
+.user-infor-element{
+    padding-top: 10px;
+    padding-bottom: 20px;
+    list-style: none;
+}
