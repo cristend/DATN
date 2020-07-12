@@ -77,7 +77,7 @@ class AESCTR():
         name, extension = file_name.split('.')
         with open(name + '.enc.' + extension, 'wb') as f:
             f.write(enc)
-        return base64.b64encode(enc).decode()
+        return enc.decode()
 
     def decrypt_file(self, file_name):
         with open(file_name, 'rb') as f:
@@ -86,3 +86,4 @@ class AESCTR():
         name, remove, extension = file_name.split('.')
         with open(name + '_copy.' + extension, 'wb') as f:
             f.write(dec)
+        return dec.decode()

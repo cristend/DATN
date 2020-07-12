@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block head %}
+{{super()}}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}"> {% endblock %}
+{% block content %}
+<div class="body">
+    <div class="wrap">
+        <h1 class="broadcast-header">Mã hóa nội dung</h1>
+        <hr class="hrx broadcast-header">
+        {% if msg %}
+        <p class="alert alert-info upload-success" role="alert">{{msg}}</p>
+        {% endif %}
+        <div class="upload">
+            <form action="http://127.0.0.1:5000/uploader" method="POST" enctype="multipart/form-data">
+                <input type="file" name="file" />
+                <input type="submit" />
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block head %}
+{{super()}}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}"> {% endblock %}
+{% block content %}
+<div class="body">
+    <div class="wrap">
+        <h1>Danh sách người dùng</h1>
+        <div class="bd">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Revoke</th>
+                    </tr>
+                </thead>
+                {% for infors in data %}
+                <tbody>
+                    <tr>
+                        <th scope="row">{{ infors[0] }}</th>
+                        {% for infor in infors[1] %}
+                        <td>{{ infor }}</td>
+                        {% endfor %}
+                        {% if not infors[2] %}
+                        <td><a href="{{ url_for('revoke', license_id=infors[0]) }}">Revoke</a></td>
+                        {% else %}
+                        <td>Revoked</td>
+                        {% endif %}
+                    </tr>
+                </tbody>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

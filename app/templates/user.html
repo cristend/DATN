@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block head %}
 {{super()}}
-<link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='css/main.css') }}"> {% endblock %} 
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}"> {% endblock %}
 {% block content %}
 <div class="body">
     <div class="wrap">
@@ -12,14 +12,18 @@
             <div class="user-infor">
                 <ul class="user-infors">
                     <li class="user-infor-element" id="username"><b>Username:</b> {{user.username}}</li>
-                    <li class="user-infor-element" id="useremail"><b>Email:</b> bnguyenvanthu1905@gmail.com</li>
-                    {% if user.status %}
-                    <li class="user-infor-element" id="license"><b>License status:</b> Actived
-                        <a href="#"><button type="button">Deactive</button></a>
+                    <li class="user-infor-element" id="useremail"><b>Email:</b>{{user.email}}</li>
+                    {% if _license %}
+                    {% if _license.revoked %}
+                    <li class="user-infor-element" id="license"><b>License status:</b> <span class="red">Revoked!</span>
+                        <a href="{{ url_for('active')}}"><button type="button">Buy new license</button></a>
                     </li>
                     {% else %}
+                    <li class="user-infor-element" id="license"><b>License status:</b> Actived</li>
+                    {% endif %}
+                    {% else %}
                     <li class="user-infor-element" id="license"><b>License status:</b> Inactive
-                        <a href="{{ url_for('active')}}"><button type="button">Active</button></a>
+                        <a href="{{ url_for('active')}}"><button type="button">Buy license</button></a>
                     </li>
                     {% endif %}
                 </ul>

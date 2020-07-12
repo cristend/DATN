@@ -1,17 +1,20 @@
 import math
-from broadcast.server.node import Node
-from broadcast.utils.common import is_power, is_leaf
+from .node import Node
+from ..utils.common import is_power, is_leaf
 
 
 class Binary_tree():
     def __init__(self, users_number):
         self.root = None
+        self.users_list = list()
         self.build(users_number=users_number)
 
     def insert(self, node, depth, depth_leaf, id):
         if depth == depth_leaf-1:
             node.left = Node(id=2*id)
             node.right = Node(id=2*id+1)
+            self.users_list.append(2*id)
+            self.users_list.append(2*id+1)
             return None
         if node.left is None:
             left_id = 2*id
@@ -40,6 +43,8 @@ class Binary_tree():
 
     def get_ST(self, revokes, root=None):
         root = self.root if root is None else root
+        if not revokes:
+            return None
         if is_leaf(root):
             if root.id in revokes:
                 leaf = Node(id=root.id)

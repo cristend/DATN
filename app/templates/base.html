@@ -1,9 +1,11 @@
 {% extends "bootstrap/base.html" %}
-{% block title %} {% if title %}{{ title }} Demo{% else %}Welcome to BroadcastApp{% endif %} {% endblock %} {% block navbar %}
+{% block title %} {% if title %}{{ title }} Demo{% else %}Welcome to BroadcastApp{% endif %} {% endblock %}
+{% block navbar %}
 <nav class="navbar navbar-default">
     <div class="container">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -28,10 +30,12 @@
                 <li><a href="{{ url_for('login') }}">Login</a></li>
                 {% elif current_user.group==1%}
                 <li><a href="{{ url_for('user', username=current_user.username) }}">Profile</a></li>
-                <li><a href="{{ url_for('upload') }}">Upload</a></li>
+                <li><a href="{{ url_for('license') }}">License</a></li>
+                <li><a href="{{ url_for('broadcast') }}">Broadcast</a></li>
                 <li><a href="{{ url_for('logout') }}">Logout</a></li>
                 {% else %}
                 <li><a href="{{ url_for('user', username=current_user.username) }}">Profile</a></li>
+                <li><a href="{{ url_for('download', file_name='decrypt') }}">Download</a></li>
                 <li><a href="{{ url_for('logout') }}">Logout</a></li>
                 {% endif %}
             </ul>
@@ -42,6 +46,7 @@
 <div class="container">
     {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
     <div class="alert alert-info" role="alert">{{ message }}</div>
-    {% endfor %} {% endif %} {% endwith %} {# application content needs to be provided in the app_content block #} {% block app_content %}{% endblock %}
+    {% endfor %} {% endif %} {% endwith %} {# application content needs to be provided in the app_content block #}
+    {% block app_content %}{% endblock %}
 </div>
 {% endblock %}

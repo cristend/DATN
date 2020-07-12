@@ -1,6 +1,6 @@
 import base64
-from broadcast.utils.crypto.aes import AESCBC
-from broadcast.utils.common import bit_str_xor
+from .aes import AESCBC
+from ...utils.common import bit_str_xor
 
 
 class ElCipher():

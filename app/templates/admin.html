@@ -1,17 +1,23 @@
 {% extends "base.html" %}
-{% import 'bootstrap/wtf.html' as wtf %}
-{% block app_content %}
-<div class="user">
-    <div class="user-title">
-        <h1>Hi, {{ current_user.username }}!</h1>
-        {% if form %} {{ wtf.quick_form(form) }}
-        <br> {% endif %}
-    </div>
-    <div class="user-content">
+{% block head %}
+{{super()}}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}"> {% endblock %}
+{% block content %}
+<div class="body">
+    <div class="wrap">
+        <h1>Danh sách nội dung đã mã hóa.</h1>
+        <hr class="hrx">
+        <div class="media-list">
+            {% for _media in media %}
+            <div class="media-item">
+                <div class="content-img"><a href="#"><img
+                            src="{{url_for('static', filename='images/content_icon_mp3.svg')}}"></a>
+                </div>
+                <p class="content-detail">{{_media.detail}}</p>
+                <p class="content-delete"><a href="{{ url_for('delete_content',media_id=_media.id) }}">Delete</a></p>
+            </div>
+            {% endfor %}
+        </div>
     </div>
 </div>
-<script>
-    var name = localStorage.getItem('name');
-    console.log(name)
-</script>
 {% endblock %}
